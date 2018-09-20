@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Optional;
+
 @Controller
 public class ProjectController {
 
@@ -57,4 +59,11 @@ public class ProjectController {
         return "redirect:/idealist";
     }
 
+    //Edits the selected idea
+    @GetMapping("/edit/{id}")
+    public String editIdea(@PathVariable("id") long id, Model model) {
+        Optional<Idea> idea = ideaRepository.findById(id);
+        model.addAttribute("idea", idea);
+        return "editidea";
+    }
 }

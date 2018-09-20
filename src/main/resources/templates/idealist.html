@@ -12,14 +12,18 @@
         <th>Description</th>
         <th>Difficulty</th>
         <th></th>
+        <th></th>
     </tr>
     <tr th:each="idea:${ideas}">
         <td th:text="${idea.name}"></td>
         <td th:text="${idea.description}"></td>
         <td th:text="${idea.difficulty}"></td>
         <td><a th:href="@{/delete/{id}(id=${idea.id})}">Delete</a></td>
+        <td><a th:href="@{/edit/{id}(id=${idea.id})}">Edit</a></td>
     </tr>
 </table>
+
+<h4><a th:href="@{/addidea}">Add Idea</a></h4>
 
 </body>
 </html>

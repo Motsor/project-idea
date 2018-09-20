@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Idea</title>
+</head>
+<body>
+<h1>Edit Idea</h1>
+<form th:object="${idea}" th:action="@{/save}" action="#" method="post">
+    <input type="hidden" th:field="*{id}" readonly/>
+    <input type="text" th:field="*{name}" required/>
+    <input type="text" th:field="*{description}" required/>
+    <select th:field="*{difficulty}" required="required">
+        <option value=""></option>
+        <option value="Beginner" th:text="Beginner"></option>
+        <option value="Intermediate" th:text="Intermediate"></option>
+        <option value="Advanced" th:text="Advanced"></option>
+    </select>
+    <input type="submit" value="Submit"/>
+</form>
+</body>
+</html>
