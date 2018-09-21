@@ -5,10 +5,11 @@ import fi.project.projectidea.domain.IdeaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -65,5 +66,22 @@ public class ProjectController {
         Optional<Idea> idea = ideaRepository.findById(id);
         model.addAttribute("idea", idea);
         return "editidea";
+    }
+
+    //Return Ideas that contains the requested parameter in their name in JSON format
+    @GetMapping("/ideas")
+    public @ResponseBody
+    List<Idea> ideas(@RequestParam(value = "name", required = false, defaultValue = "") String name) {
+        List<Idea> ideas = (List<Idea>) ideaRepository.findAll();
+        Iterator<Idea> i = ideas.iterator();
+        List<Idea> matchedIdeas = new ArrayList<>();
+        Idea tempIdea;
+        while (i.hasNext()) {
+            tempIdea = i.next();
+            if (tempIdea.getName().toLowerCase().contains(name)) {
+                matchedIdeas.add(tempIdea);
+            }
+        }
+        return matchedIdeas;
     }
 }
