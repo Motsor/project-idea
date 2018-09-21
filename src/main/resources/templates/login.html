@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Ideas</title>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<header class="container">
+    <div class="jumbotron">
+        <form th:action="@{/login}" method="post">
+            <div class="form-row align-items-center">
+                <h1 class="col-sm-6">Project Idea</h1>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" name="username" placeholder="Username" required/>
+                </div>
+                <div class="col-sm-2">
+                    <input type="password" class="form-control" name="password" placeholder="Password"
+                           required/>
+                </div>
+                <div class="col-sm-2">
+                    <input type="submit" value="Sign in" class="btn btn-outline-primary"/>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <p class="alert alert-danger col-sm-3 push-sm-8" role="alert" th:if="${param.error}">
+                Invalid username or password!
+            </p>
+            <p class="alert alert-success col-sm-3 push-sm-8" role="alert" th:if="${param.logout}">
+                You have been logged out.
+            </p>
+        </div>
+    </div>
+</header>
+<section class="container">
+    <form class="form-col col-4">
+        <h3>Create an account</h3>
+        <div>
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" required/>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" required/>
+        </div>
+        <div>
+            <label for="vpassword">Verify password</label>
+            <input type="password" class="form-control" id="vpassword" required/>
+            <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.
+            </small>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Sign up">
+    </form>
+</section>
+</body>
+</html>

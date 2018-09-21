@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Project Ideas</title>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
 </head>
 <body>
 <h1>Idea list</h1>
@@ -24,6 +25,8 @@
 </table>
 
 <h4><a th:href="@{/addidea}">Add Idea</a></h4>
-
+<form th:action="@{/logout}" method="post">
+    <input class="btn btn-danger" type="submit" value="Sign Out"/>
+</form>
 </body>
 </html>

@@ -23,10 +23,16 @@ public class ProjectController {
         this.ideaRepository = ideaRepository;
     }
 
-    //returns index.html page which is the welcome page
+    //returns the login page
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    //redirects to idealist.html page
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "redirect:idealist";
     }
 
     //returns idealist.html page which consist of all the ideas
@@ -46,14 +52,14 @@ public class ProjectController {
         return "addidea";
     }
 
-    //Saves the added idea to a repository
+    //Saves the added idea to a repository and then redirects to idealist.html pag
     @PostMapping("/save")
     public String save(Idea idea) {
         ideaRepository.save(idea);
         return "redirect:/idealist";
     }
 
-    //Deletes the deleted idea from the repository
+    //Deletes the deleted idea from the repository  and then redirects to idealist.html page
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") long id) {
         ideaRepository.deleteById(id);
