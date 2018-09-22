@@ -1,23 +1,43 @@
 package fi.project.projectidea;
 
+import fi.project.projectidea.web.UserDetailServiceImpl;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    UserDetailServiceImpl userDetailService;
+
     /*
-    The following method sets the authentication settings.
-    The program asks for authentication in all pages except in "/api" and "/ideas".
+    The following method tells our security configuration to use
+    our implementation of UserDetailService. It also advise it to
+    encrypt all the passwords using BCrypt hash algorithm.
+     */
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailService).passwordEncoder(new BCryptPasswordEncoder());
+    }
+
+    /*
+    The following method sets the authentication settings. The program asks for
+    authentication in all pages except in "/api", "/ideas", "/signup" and "saveuser".
     The css directory must be aurhentication free just to be able to style the login page
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/css/**", "/api/**", "/ideas")
+                .antMatchers("/css/**", "/api/**", "/ideas", "/signup", "/saveuser")
                 .permitAll()
                 .and()
                 .authorizeRequests()
@@ -29,5 +49,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().permitAll();
     }
-
 }

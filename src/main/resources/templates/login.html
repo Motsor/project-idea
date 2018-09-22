@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Project Ideas</title>
-    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <header class="container">
@@ -28,31 +28,13 @@
             <p class="alert alert-danger col-sm-3 push-sm-8" role="alert" th:if="${param.error}">
                 Invalid username or password!
             </p>
-            <p class="alert alert-success col-sm-3 push-sm-8" role="alert" th:if="${param.logout}">
+            <p class="alert alert-warning col-sm-3 push-sm-8" role="alert" th:if="${param.logout}">
                 You have been logged out.
             </p>
         </div>
     </div>
 </header>
-<section class="container">
-    <form class="form-col col-4">
-        <h3>Create an account</h3>
-        <div>
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" required/>
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" required/>
-        </div>
-        <div>
-            <label for="vpassword">Verify password</label>
-            <input type="password" class="form-control" id="vpassword" required/>
-            <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.
-            </small>
-        </div>
-        <input class="btn btn-primary" type="submit" value="Sign up">
-    </form>
-</section>
+
+<h1><a th:href="@{/signup}">Create an account</a></h1>
 </body>
 </html>

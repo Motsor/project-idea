@@ -2,6 +2,9 @@ package fi.project.projectidea.web;
 
 import fi.project.projectidea.domain.Idea;
 import fi.project.projectidea.domain.IdeaRepository;
+import fi.project.projectidea.domain.SignupForm;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,23 +16,24 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class ProjectController {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class IdeaController {
 
-    private IdeaRepository ideaRepository;
+    IdeaRepository ideaRepository;
 
     //Constructor dependency injection (recommended by the Spring team)
     @Autowired
-    public ProjectController(IdeaRepository ideaRepository) {
+    public IdeaController(IdeaRepository ideaRepository) {
         this.ideaRepository = ideaRepository;
     }
 
     //returns the login page
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
     }
 
-    //redirects to idealist.html page
+    //redirects to idealist.html
     @GetMapping("/")
     public String index() {
         return "redirect:idealist";
