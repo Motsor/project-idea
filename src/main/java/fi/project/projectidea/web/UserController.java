@@ -51,7 +51,7 @@ public class UserController {
                     return "signup";
                 }
             } else {
-                bindingResult.rejectValue("verifyPassword", "err.passVerify", "Passwords does not match");
+                bindingResult.rejectValue("verifyPassword", "err.passVerify", "Passwords do not match");
                 return "signup";
             }
         } else {

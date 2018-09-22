@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Project Ideas</title>
+    <title>Project Idea | Login</title>
+    <link rel="icon" th:href="@{/img/open.png}"/>
     <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
     <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
@@ -34,7 +35,19 @@
         </div>
     </div>
 </header>
+<section class="container">
+    <div class="text-center tdiv">
+        <h3>Welcome to Project Idea</h3>
+        <p>Project Idea is a website where you can find project ideas.
+            Whether it be for a school project or just a project to put in a portfolio.
+            You can also help others by submitting your own ideas. <strong>My Project, your Project, Project for
+                all!</strong>
+        </p>
+    </div>
+    <div class="text-center divbtn">
+        <h3><a class="btn btn-primary" th:href="@{/signup}">Create an account</a></h3>
+    </div>
+</section>
 
-<h1><a th:href="@{/signup}">Create an account</a></h1>
 </body>
 </html>

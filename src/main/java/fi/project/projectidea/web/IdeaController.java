@@ -2,7 +2,6 @@ package fi.project.projectidea.web;
 
 import fi.project.projectidea.domain.Idea;
 import fi.project.projectidea.domain.IdeaRepository;
-import fi.project.projectidea.domain.SignupForm;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,31 +2,48 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Project Ideas</title>
+    <title>Project Idea | Ideas</title>
+    <link rel="icon" th:href="@{/img/open.png}"/>
     <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<h1>Idea list</h1>
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Difficulty</th>
-        <th></th>
-        <th></th>
-    </tr>
-    <tr th:each="idea:${ideas}">
-        <td th:text="${idea.name}"></td>
-        <td th:text="${idea.description}"></td>
-        <td th:text="${idea.difficulty}"></td>
-        <td><a th:href="@{/delete/{id}(id=${idea.id})}">Delete</a></td>
-        <td><a th:href="@{/edit/{id}(id=${idea.id})}">Edit</a></td>
-    </tr>
-</table>
-
-<h4><a th:href="@{/addidea}">Add Idea</a></h4>
-<form th:action="@{/logout}" method="post">
-    <input class="btn btn-danger" type="submit" value="Sign Out"/>
-</form>
+<header class="container">
+    <div class="jumbotron">
+        <h1 class="text-center">Idea list</h1>
+    </div>
+</header>
+<section class="container">
+    <div>
+        <img id="avatar" th:src="@{/img/avatar.png}" src="#" alt="Avatar"/>
+        <h4 class="ind">[[${#httpServletRequest.remoteUser}]]</h4>
+        <form th:action="@{/logout}" method="post">
+            <input class="btn btn-outline-danger ind" type="submit" value="Sign Out"/>
+        </form>
+    </div>
+    <h4><a class="btn btn-outline-primary" th:href="@{/addidea}">Add Idea</a></h4>
+</section>
+<section class="container" id="tb">
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Difficulty</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="idea:${ideas}">
+            <td th:text="${idea.name}"></td>
+            <td th:text="${idea.description}"></td>
+            <td th:text="${idea.difficulty}"></td>
+            <td><a class="btn btn-danger" th:href="@{/delete/{id}(id=${idea.id})}">Delete</a></td>
+            <td><a class="btn btn-primary" th:href="@{/edit/{id}(id=${idea.id})}">Edit</a></td>
+        </tr>
+        </tbody>
+    </table>
+</section>
 </body>
 </html>

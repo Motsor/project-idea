@@ -1,3 +1,6 @@
+body {
+    color:rgb(73, 80, 87);
+}
 input {
     margin: 0.5em;
 }
@@ -19,4 +22,33 @@ form {
     .jumbotron {
         height: 11.8rem;
     }
+}
+#avatar {
+    width: 13%;
+    border-radius:.3rem;
+}
+.container > h4 {
+    position: relative;
+    left: 87.5%;
+    bottom: 2em;
+    display: inline-block;
+}
+#tb {
+    position: relative;
+    bottom: 2em;
+}
+
+.ind {
+    margin-left: 3%;
+}
+.addform {
+    margin-left: 37%;
+    margin-top: -14%;
+}
+.tdiv {
+    width: 42%;
+    margin: auto;
+}
+.divbtn {
+    margin-top: 3%;
 }

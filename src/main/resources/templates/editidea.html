@@ -2,22 +2,46 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Idea</title>
+    <title>Project Idea | Edit Idea</title>
+    <link rel="icon" th:href="@{/img/open.png}"/>
     <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<h1>Edit Idea</h1>
-<form th:object="${idea}" th:action="@{/save}" action="#" method="post">
+<header class="container">
+    <div class="jumbotron">
+        <h1 class="text-center">Edit Idea</h1>
+    </div>
+</header>
+<section class="container">
+    <div>
+        <img id="avatar" th:src="@{/img/avatar.png}" src="#" alt="Avatar"/>
+        <h4 class="ind">[[${#httpServletRequest.remoteUser}]]</h4>
+        <form th:action="@{/logout}" method="post">
+            <input class="btn btn-outline-danger ind" type="submit" value="Sign Out"/>
+        </form>
+    </div>
+</section>
+<form class="form-col col-3 addform" th:object="${idea}" th:action="@{/save}" action="#" method="post">
     <input type="hidden" th:field="*{id}" readonly/>
-    <input type="text" th:field="*{name}" required/>
-    <input type="text" th:field="*{description}" required/>
-    <select th:field="*{difficulty}" required="required">
-        <option value=""></option>
-        <option value="Beginner" th:text="Beginner"></option>
-        <option value="Intermediate" th:text="Intermediate"></option>
-        <option value="Advanced" th:text="Advanced"></option>
-    </select>
-    <input type="submit" value="Submit"/>
+    <div>
+        <label for="name">Name</label>
+        <input id="name" type="text" class="form-control" th:field="*{name}" required/>
+    </div>
+    <div>
+        <label for="description">Description</label>
+        <textarea id="description" class="form-control" th:field="*{description}" rows="5" required></textarea>
+    </div>
+    <div>
+        <label for="difficulty">Difficulty</label>
+        <select id="difficulty" class="form-control" th:field="*{difficulty}" required>
+            <option value="" selected></option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+        </select>
+    </div>
+    <input type="submit" class="btn btn-primary col-4" value="Edit"/>
 </form>
 </body>
 </html>

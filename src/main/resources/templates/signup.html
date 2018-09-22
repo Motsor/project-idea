@@ -2,11 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Sign up</title>
+    <title>Project Idea | Sign up</title>
+    <link rel="icon" th:href="@{/img/open.png}"/>
     <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
     <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<header class="container">
+    <div class="jumbotron">
+        <h1>Project Idea</h1>
+    </div>
+</header>
 <section class="container">
     <form class="form-col col-4" th:object="${signupform}" th:action="@{saveuser}" action="#" method="post">
         <h3>Create an account</h3>
