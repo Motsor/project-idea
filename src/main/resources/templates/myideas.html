@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
-    <title>Project Idea | Ideas</title>
+    <title>Project Idea | My Ideas</title>
     <link rel="icon" th:href="@{/img/open.png}"/>
     <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
     <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
@@ -11,21 +11,22 @@
 <body>
 <header class="container">
     <div class="jumbotron">
-        <h1 class="text-center">Idea list</h1>
+        <h1 class="text-center">My Ideas</h1>
     </div>
 </header>
+
 <section class="container">
     <div>
         <img id="avatar" th:src="@{/img/avatar.png}" src="#" alt="Avatar"/>
         <h4 class="ind">[[${#httpServletRequest.remoteUser}]]</h4>
-        <h4 sec:authorize="hasAuthority('USER')"><a class="btn btn-outline-success ind" th:href="@{/myideas}">My
-            Ideas</a></h4>
+        <h4 sec:authorize="hasAuthority('USER')"><a class="btn btn-outline-success ind" th:href="@{/idealist}">Back</a></h4>
         <form th:action="@{/logout}" method="post">
             <input class="btn btn-outline-danger ind" type="submit" value="Sign Out"/>
         </form>
     </div>
     <h4><a class="btn btn-outline-primary" th:href="@{/addidea}">Add Idea</a></h4>
 </section>
+
 <section class="container" id="tb">
     <table class="table">
         <thead class="thead-light">
@@ -43,16 +44,17 @@
             <td th:text="${idea.description}"></td>
             <td th:text="${idea.difficulty}"></td>
             <td>
-                <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-danger"
+                <a class="btn btn-danger"
                    th:href="@{/delete/{id}(id=${idea.id})}">Delete</a>
             </td>
             <td>
-                <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-primary"
+                <a class="btn btn-primary"
                    th:href="@{/edit/{id}(id=${idea.id})}">Edit</a>
             </td>
         </tr>
         </tbody>
     </table>
 </section>
+
 </body>
 </html>

@@ -50,6 +50,18 @@ public class IdeaController {
         return "idealist";
     }
 
+    //returns the myideas.html page which consists of the ideas submitted by the current user
+    @GetMapping("/myideas")
+    public String myIdeas(Model model) {
+        //returns current authentication
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //returns the name of the current user
+        String current = authentication.getName();
+
+        model.addAttribute("ideas", userRepository.findByUsername(current).getIdeas());
+        return "myideas";
+    }
+
     /*
     returns addidea.html page where users can add ideas
     It sends a new instance of an Idea to the "addidea" page
@@ -63,11 +75,8 @@ public class IdeaController {
     //Saves the added idea to a repository and then redirects to idealist.html pag
     @PostMapping("/save")
     public String save(Idea idea) {
-        //returns current authentication
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //returns the name of the current user
         String current = authentication.getName();
-        //sets the owner of the idea
         idea.setUser(userRepository.findByUsername(current));
 
         ideaRepository.save(idea);

@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/css/**","/img/**", "/api/**", "/ideas", "/signup", "/saveuser")
+                .antMatchers("/css/**", "/h2/", "/img/**", "/api/**", "/ideas", "/signup", "/saveuser")
                 .permitAll()
                 .and()
                 .authorizeRequests()
@@ -48,5 +48,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/idealist").permitAll()
                 .and()
                 .logout().permitAll();
+
+        //To be able to use the h2 in-memory database with Spring Security you have to set the following
+        http.exceptionHandling().accessDeniedPage("/403");
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 }
