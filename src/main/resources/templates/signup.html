@@ -19,17 +19,23 @@
         <div>
             <label for="username">Username</label>
             <input type="text" th:field="*{username}" class="form-control" id="username" required/>
-            <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>
+            <p class="alert alert-danger alerts" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+                Username
+                Error</p>
         </div>
         <div>
             <label for="password">Password</label>
             <input type="password" th:field="*{password}" class="form-control" id="password" required/>
-            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
+            <p class="alert alert-danger alerts" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                Password
+                Error</p>
         </div>
         <div>
             <label for="vpassword">Verify password</label>
             <input type="password" th:field="*{verifyPassword}" class="form-control" id="vpassword" required/>
-            <p th:if="${#fields.hasErrors('verifyPassword')}" th:errors="*{verifyPassword}">Password Match Error</p>
+            <p class="alert alert-danger alerts" th:if="${#fields.hasErrors('verifyPassword')}"
+               th:errors="*{verifyPassword}">
+                Password Match Error</p>
             <small class="form-text text-muted">We'll never share your information with anyone else.
             </small>
         </div>

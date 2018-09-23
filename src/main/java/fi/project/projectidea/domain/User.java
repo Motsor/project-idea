@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 //Data annotation from the Project Lombok library creates getters and setters for every argument
@@ -14,7 +15,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, updatable = false)
+    @Column(name = "uid", nullable = false, updatable = false)
     Long id;
 
     @Column(name = "username", nullable = false, unique = true)
@@ -25,6 +26,10 @@ public class User {
 
     @Column(name = "role", nullable = false)
     String role;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    List<Idea> ideas;
+
 
     public User() {
     }

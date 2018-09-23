@@ -2,9 +2,12 @@ package fi.project.projectidea.web;
 
 import fi.project.projectidea.domain.Idea;
 import fi.project.projectidea.domain.IdeaRepository;
+import fi.project.projectidea.domain.UserRepository;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +22,13 @@ import java.util.Optional;
 public class IdeaController {
 
     IdeaRepository ideaRepository;
+    UserRepository userRepository;
 
     //Constructor dependency injection (recommended by the Spring team)
     @Autowired
-    public IdeaController(IdeaRepository ideaRepository) {
+    public IdeaController(IdeaRepository ideaRepository, UserRepository userRepository) {
         this.ideaRepository = ideaRepository;
+        this.userRepository = userRepository;
     }
 
     //returns the login page
@@ -58,6 +63,13 @@ public class IdeaController {
     //Saves the added idea to a repository and then redirects to idealist.html pag
     @PostMapping("/save")
     public String save(Idea idea) {
+        //returns current authentication
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //returns the name of the current user
+        String current = authentication.getName();
+        //sets the owner of the idea
+        idea.setUser(userRepository.findByUsername(current));
+
         ideaRepository.save(idea);
         return "redirect:/idealist";
     }
