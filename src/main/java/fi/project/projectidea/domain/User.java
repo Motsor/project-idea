@@ -3,6 +3,7 @@ package fi.project.projectidea.domain;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,7 +15,9 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "user")
+    //This will help us to write shorter SQL statements in data.sql file
+    @GenericGenerator(name = "user", strategy = "native")
     @Column(name = "uid", nullable = false, updatable = false)
     Long id;
 
