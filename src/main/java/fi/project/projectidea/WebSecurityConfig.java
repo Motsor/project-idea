@@ -31,8 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /*
     The following method sets the authentication settings. The program asks for
-    authentication in all pages except in "/api", "/ideas", "/signup" and "saveuser".
-    The css directory must be aurhentication free just to be able to style the login page
+    authentication in all mappings except in the mappings defined in a antmatcher that are permited.
+    The css directory must be authentication free to be able to style the login page.
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {

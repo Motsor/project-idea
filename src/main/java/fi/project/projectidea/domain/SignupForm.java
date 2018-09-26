@@ -7,6 +7,12 @@ import lombok.experimental.FieldDefaults;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+/*
+Sign up form with for sign up validation.
+@NotEmpty annotation means that that particular field cannot be empty.
+@Size annotations define the character sizes of the fields.
+ */
+
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SignupForm {

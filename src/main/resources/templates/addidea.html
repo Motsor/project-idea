@@ -17,14 +17,21 @@
 <section class="container">
     <div>
         <img id="avatar" th:src="@{/img/avatar.png}" src="#" alt="Avatar"/>
+
+        <!--Displays the current user-->
         <h4 class="ind">[[${#httpServletRequest.remoteUser}]]</h4>
+
+        <!--Only USER has the authority to use and see the "My ideas" button-->
         <h4 sec:authorize="hasAuthority('USER')"><a class="btn btn-outline-success ind" th:href="@{/myideas}">My
             Ideas</a></h4>
+
+        <!--The following is the logout button-->
         <form th:action="@{/logout}" method="post">
             <input class="btn btn-outline-danger ind" type="submit" value="Sign Out"/>
         </form>
     </div>
 </section>
+<!--The following form is where the new Ideas are added-->
 <form class="form-col col-3 addform" th:object="${idea}" th:action="@{save}" action="#" method="post">
     <div>
         <label for="name">Name</label>

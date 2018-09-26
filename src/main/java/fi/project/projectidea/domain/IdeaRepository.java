@@ -5,4 +5,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface IdeaRepository extends CrudRepository<Idea,Long> {
+    Idea findByName(String name);
 }

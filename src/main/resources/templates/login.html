@@ -10,6 +10,7 @@
 <body>
 <header class="container">
     <div class="jumbotron">
+        <!--Login form-->
         <form th:action="@{/login}" method="post">
             <div class="form-row align-items-center">
                 <h1 class="col-sm-6">Project Idea</h1>
@@ -26,9 +27,12 @@
             </div>
         </form>
         <div class="row">
+            <!--If the username or/and password is wrong the following error is displayed-->
             <p class="alert alert-danger col-sm-3 push-sm-8" role="alert" th:if="${param.error}">
                 Invalid username or password!
             </p>
+
+            <!--After the user logs out a warning with the following message is displayed-->
             <p class="alert alert-warning col-sm-3 push-sm-8" role="alert" th:if="${param.logout}">
                 You have been logged out.
             </p>
@@ -45,6 +49,7 @@
         </p>
     </div>
     <div class="text-center divbtn">
+        <!--The following button redirects to the signup page-->
         <h3><a class="btn btn-primary" th:href="@{/signup}">Create an account</a></h3>
     </div>
 </section>

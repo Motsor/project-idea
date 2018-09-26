@@ -14,11 +14,14 @@
     </div>
 </header>
 <section class="container">
+    <!--The following is the sign up form-->
     <form class="form-col col-4" th:object="${signupform}" th:action="@{saveuser}" action="#" method="post">
         <h3>Create an account</h3>
         <div>
             <label for="username">Username</label>
             <input type="text" th:field="*{username}" class="form-control" id="username" required/>
+
+            <!--The following error will be activated if there's an error in the field above-->
             <p class="alert alert-danger alerts" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
                 Username
                 Error</p>
@@ -26,6 +29,8 @@
         <div>
             <label for="password">Password</label>
             <input type="password" th:field="*{password}" class="form-control" id="password" required/>
+
+            <!--The following error will be activated if there's an error in the field above-->
             <p class="alert alert-danger alerts" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
                 Password
                 Error</p>
@@ -33,6 +38,8 @@
         <div>
             <label for="vpassword">Verify password</label>
             <input type="password" th:field="*{verifyPassword}" class="form-control" id="vpassword" required/>
+
+            <!--The following error will be activated if there's an error in the field above-->
             <p class="alert alert-danger alerts" th:if="${#fields.hasErrors('verifyPassword')}"
                th:errors="*{verifyPassword}">
                 Password Match Error</p>

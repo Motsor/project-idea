@@ -21,13 +21,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    //Finds the current user and loads the its data.
+    //Finds the current user and loads its data.
     @Override
     public UserDetails loadUserByUsername(String username) {
         User currentUser = userRepository.findByUsername(username);
-        UserDetails user = new org.springframework.security.core.userdetails
+        //Returns instance of UserDetails filled with the data of the current user.
+        return new org.springframework.security.core.userdetails
                 .User(username, currentUser.getPassword(), AuthorityUtils.createAuthorityList(currentUser.getRole()));
-        return user;
     }
 
 }

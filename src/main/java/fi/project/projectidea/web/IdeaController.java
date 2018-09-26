@@ -24,7 +24,7 @@ public class IdeaController {
     IdeaRepository ideaRepository;
     UserRepository userRepository;
 
-    //Constructor dependency injection (recommended by the Spring team)
+    //Constructor dependency injection of ideaRepository and userRepository
     @Autowired
     public IdeaController(IdeaRepository ideaRepository, UserRepository userRepository) {
         this.ideaRepository = ideaRepository;
@@ -37,24 +37,25 @@ public class IdeaController {
         return "login";
     }
 
-    //redirects to idealist.html
+    //redirects to idealist page
     @GetMapping("/")
     public String index() {
         return "redirect:idealist";
     }
 
-    //returns idealist.html page which consist of all the ideas
+    //returns idealist page which consist of all the ideas
     @GetMapping("/idealist")
     public String ideaList(Model model) {
         model.addAttribute("ideas", ideaRepository.findAll());
         return "idealist";
     }
 
-    //returns the myideas.html page which consists of the ideas submitted by the current user
+    //returns the myideas page which consists of the ideas submitted by the current user
     @GetMapping("/myideas")
     public String myIdeas(Model model) {
         //returns current authentication
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         //returns the name of the current user
         String current = authentication.getName();
 
@@ -63,16 +64,19 @@ public class IdeaController {
     }
 
     /*
-    returns addidea.html page where users can add ideas
+    returns addidea page where users can add ideas
     It sends a new instance of an Idea to the "addidea" page
      */
     @GetMapping("/addidea")
-    public String addIdea(Model model) {
-        model.addAttribute("idea", new Idea());
+    public String addIdea(Idea idea, Model model) {
+        model.addAttribute("idea", idea);
         return "addidea";
     }
 
-    //Saves the added idea to a repository and then redirects to idealist.html pag
+    /*
+    Finds the authenticated user and sets it as ideas author.
+    Also saves the added idea to a repository and then redirects to idealist page.
+     */
     @PostMapping("/save")
     public String save(Idea idea) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -83,7 +87,7 @@ public class IdeaController {
         return "redirect:/idealist";
     }
 
-    //Deletes the deleted idea from the repository  and then redirects to idealist.html page
+    //Deletes the selected idea from the repository  and then redirects to idealist page
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") long id) {
         ideaRepository.deleteById(id);
@@ -98,7 +102,10 @@ public class IdeaController {
         return "editidea";
     }
 
-    //Return Ideas that contains the requested parameter in their name in JSON format
+    /*
+    Returns Idea that contains the requested parameter in their name in JSON format.
+    For developers that want to get Ideas that contain certain words in their name in JSON format.
+     */
     @GetMapping("/ideas")
     public @ResponseBody
     List<Idea> ideas(@RequestParam(value = "name", required = false, defaultValue = "") String name) {

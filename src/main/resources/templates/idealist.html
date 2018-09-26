@@ -11,15 +11,21 @@
 <body>
 <header class="container">
     <div class="jumbotron">
-        <h1 class="text-center">Idea list</h1>
+        <h1 class="text-center">Idea List</h1>
     </div>
 </header>
 <section class="container">
     <div>
         <img id="avatar" th:src="@{/img/avatar.png}" src="#" alt="Avatar"/>
+
+        <!--Displays the current user-->
         <h4 class="ind">[[${#httpServletRequest.remoteUser}]]</h4>
+
+        <!--Only user has the authority to use and see the "My ideas" button-->
         <h4 sec:authorize="hasAuthority('USER')"><a class="btn btn-outline-success ind" th:href="@{/myideas}">My
             Ideas</a></h4>
+
+        <!--The following is the logout button-->
         <form th:action="@{/logout}" method="post">
             <input class="btn btn-outline-danger ind" type="submit" value="Sign Out"/>
         </form>
@@ -27,6 +33,7 @@
     <h4><a class="btn btn-outline-primary" th:href="@{/addidea}">Add Idea</a></h4>
 </section>
 <section class="container" id="tb">
+    <!--Idea list is below-->
     <table class="table">
         <thead class="thead-light">
         <tr>
@@ -43,10 +50,12 @@
             <td th:text="${idea.description}"></td>
             <td th:text="${idea.difficulty}"></td>
             <td>
+                <!--Only ADMIN user has the authority to delete ideas here-->
                 <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-danger"
                    th:href="@{/delete/{id}(id=${idea.id})}">Delete</a>
             </td>
             <td>
+                <!--Only ADMIN user has the authority to edit ideas here-->
                 <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-primary"
                    th:href="@{/edit/{id}(id=${idea.id})}">Edit</a>
             </td>

@@ -20,37 +20,53 @@ import javax.validation.Valid;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserController {
 
-    @Autowired
     UserRepository userRepository;
 
-    //returns the sign up page
+    @Autowired
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    /*
+    returns the sign up page. Added @ModelAttribute annotation to avoid data binding exception.
+    */
     @GetMapping("/signup")
-    public String login(Model model) {
-        model.addAttribute("signupform", new SignupForm());
+    public String login(@ModelAttribute("signupform") SignupForm signupForm, Model model) {
+        model.addAttribute("signupform", signupForm);
         return "signup";
     }
 
     //Validates our sign up form
     @PostMapping("/saveuser")
     public String saveUser(@Valid @ModelAttribute("signupform") SignupForm signupForm, BindingResult bindingResult) {
+        //Checks if the binding result has any errors.
         if (!bindingResult.hasErrors()) {
+            //Checks if the given passwords match.
             if (signupForm.getPassword().equals(signupForm.getVerifyPassword())) {
-                String pwd = signupForm.getPassword();
-                BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
-                String hashPwd = bc.encode(pwd);
 
-                User newUser = new User();
-                newUser.setUsername(signupForm.getUsername());
-                newUser.setPassword(hashPwd);
-                newUser.setRole(signupForm.getRole());
-
+                //Checks if a user with the same username already exists.
                 if (userRepository.findByUsername(signupForm.getUsername()) == null) {
+                    String pwd = signupForm.getPassword();
+
+                    //Creates a BCrypt encoder and encodes the new users password
+                    BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+                    String hashPwd = bc.encode(pwd);
+
+                    //Creates a new user and sets its fields with the data from the sign up form.
+                    User newUser = new User();
+                    newUser.setUsername(signupForm.getUsername());
+                    newUser.setPassword(hashPwd);
+                    newUser.setRole(signupForm.getRole());
+
+                    //Saves the created user to the repository.
                     userRepository.save(newUser);
                 } else {
+                    //Will reject the value and give an error if a user with the same username already exist.
                     bindingResult.rejectValue("username", "err.username", "Username is taken");
                     return "signup";
                 }
             } else {
+                //Will give an error if the given passwords do not match.
                 bindingResult.rejectValue("verifyPassword", "err.passVerify", "Passwords do not match");
                 return "signup";
             }

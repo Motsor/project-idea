@@ -3,21 +3,17 @@ package fi.project.projectidea.domain;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-//Data annotation from the Project Lombok library creates getters and setters for every argument
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "user")
-    //This will help us to write shorter SQL statements in data.sql file
-    @GenericGenerator(name = "user", strategy = "native")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "uid", nullable = false, updatable = false)
     Long id;
 
@@ -33,7 +29,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     List<Idea> ideas;
 
-
+    //Default constructor required by JPA
     public User() {
     }
 

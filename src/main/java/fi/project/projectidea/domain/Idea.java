@@ -4,20 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 @Entity
 //Data annotation from the Project Lombok library creates getters and setters for every argument
 @Data
-//FieldDefaults annotation sets the visibility of field to private
+//FieldDefaults annotation sets the visibility of field as default to private
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Idea {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "idea")
-    //This will help us to write shorter SQL statements in data.sql file
-    @GenericGenerator(name = "idea", strategy = "native")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
     long id;
 
@@ -35,6 +32,7 @@ public class Idea {
     @JoinColumn(name = "uid")
     User user;
 
+    //Default constructor required by JPA
     public Idea() {
     }
 
@@ -42,10 +40,9 @@ public class Idea {
         this.user = user;
     }
 
-    public Idea(String name, String description, String difficulty, User user) {
+    public Idea(String name, String description, String difficulty) {
         this.name = name;
         this.description = description;
         this.difficulty = difficulty;
-        this.user = user;
     }
 }
