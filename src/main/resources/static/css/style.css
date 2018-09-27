@@ -60,7 +60,14 @@ form {
 .divbtn {
     margin-top: 3%;
 }
+
 .alerts {
     position: relative;
     left: 3%;
+}
+
+#dacc {
+    position: relative;
+    top: -25px;
+    left: 953px;
 }

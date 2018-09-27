@@ -6,6 +6,8 @@ import fi.project.projectidea.domain.UserRepository;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -43,9 +46,16 @@ public class UserController {
         if (!bindingResult.hasErrors()) {
             //Checks if the given passwords match.
             if (signupForm.getPassword().equals(signupForm.getVerifyPassword())) {
-
+                List<User> users = (List<User>) userRepository.findAll();
+                boolean exists = true;
                 //Checks if a user with the same username already exists.
-                if (userRepository.findByUsername(signupForm.getUsername()) == null) {
+                for (User user : users) {
+                    if (user.getUsername().toLowerCase().equals(signupForm.getUsername().toLowerCase())) {
+                        exists = false;
+                        break;
+                    }
+                }
+                if (exists) {
                     String pwd = signupForm.getPassword();
 
                     //Creates a BCrypt encoder and encodes the new users password
@@ -74,6 +84,16 @@ public class UserController {
             return "signup";
         }
         return "redirect:login";
+    }
+
+    //Deletes the current authenticated user
+    @GetMapping("/deleteaccount")
+    public String deleteAccount() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String current = authentication.getName();
+        userRepository.deleteById(userRepository.findByUsername(current).getId());
+
+        return "redirect:logout";
     }
 
 }
